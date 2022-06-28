@@ -1,4 +1,5 @@
 package com.zipcodewilmington;
+import java.util.Arrays;
 
 /**
  * Created by leon on 1/29/18.
@@ -25,7 +26,7 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        return null;
+        return array[array.length-1];
     }
 
     /**
@@ -33,7 +34,7 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        return null;
+        return array[array.length-2];
     }
 
     /**
@@ -42,7 +43,14 @@ public class StringArrayUtils {
      * @return true if the array contains the specified `value`
      */ // TODO
     public static boolean contains(String[] array, String value) {
-        return false;
+        boolean found = false;
+        for (String x : array) {
+            if (x == value) {
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 
     /**
@@ -50,7 +58,14 @@ public class StringArrayUtils {
      * @return an array with identical contents in reverse order
      */ // TODO
     public static String[] reverse(String[] array) {
-        return null;
+        String[] reversed = Arrays.copyOf(array, array.length);
+
+        for (int i = 0; i < (reversed.length)/2; i++) {
+            String temp = reversed[i];
+            reversed[i] = reversed[reversed.length-i-1];
+            reversed[reversed.length-i-1] = temp;
+        }
+        return reversed;
     }
 
     /**
@@ -58,7 +73,12 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        return false;
+        boolean palindrome = false;
+        String[] reversed = StringArrayUtils.reverse(array);
+        if (Arrays.equals(array, reversed)) {
+            palindrome = true;
+        }
+        return palindrome;
     }
 
     /**
@@ -66,7 +86,18 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        return false;
+        String check = Arrays.toString(array);
+        check = check.toLowerCase();
+        boolean pangram = true;
+
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            if (!check.contains(String.valueOf(ch))) {
+                pangram = false;
+                break;
+            }
+        }
+
+        return pangram;
     }
 
     /**
